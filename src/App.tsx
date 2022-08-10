@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext, useEffect} from 'react';
+import Calendar from "./components/Calendar";
+import {Context} from "./index";
+import {observer} from "mobx-react-lite";
+import {currentWeek} from "./helpers/dateHelper";
+
+
 
 function App() {
+  const {store} = useContext(Context);
+
+  useEffect(()=>{
+    store.setWeek(currentWeek());
+  },[]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Calendar/>
   );
 }
 
-export default App;
+export default observer(App);
